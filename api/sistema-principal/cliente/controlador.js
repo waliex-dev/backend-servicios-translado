@@ -7,8 +7,7 @@ const crearCliente = async(req,res) => {
         await Schema.clienteSchemaCrear.validateAsync(cliente);
     }
     catch (err) {
-        res.status(400).json({'error':"error de validacion de campos. El campo: "+err.details[0].path});
-        return;
+        return res.status(200).json({'error':"error de validacion de campos. El campo: "+err.details[0].path});
     }
     try{
         let respuesta = await logicaDB.crearClienteDB(cliente)
@@ -24,7 +23,7 @@ const editarCliente = async(req,res) => {
         await Schema.clienteSchemaEditar.validateAsync(cliente);
     }
     catch (err) {
-        res.status(400).json({'error':"error de validacion de campos. El campo: "+err.details[0].path});
+        res.status(200).json({'error':"error de validacion de campos. El campo: "+err.details[0].path});
         return;
     }
     try{

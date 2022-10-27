@@ -8,7 +8,7 @@ const crearUsuario = async(req,res) => {
         await Schema.usuarioSchemaCrear.validateAsync(usuario);
     }
     catch (err) {
-        res.status(400).json({'error':"error de validacion de campos. El campo: "+err.details[0].path});
+        res.status(200).json({'error':"error de validacion de campos. El campo: "+err.details[0].path});
         return;
     }
     try{
@@ -26,7 +26,7 @@ const editarUsuario = async(req,res) => {
         await Schema.usuarioSchemaEditar.validateAsync(usuario);
     }
     catch (err) {
-        res.status(400).json({'error':"error de validacion de campos. El campo: "+err.details[0].path});
+        res.status(200).json({'error':"error de validacion de campos. El campo: "+err.details[0].path});
         return;
     }
     try{
