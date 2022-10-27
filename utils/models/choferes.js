@@ -38,6 +38,11 @@ module.exports = function(sequelize, DataTypes) {
     estado: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    vehiculo_propio: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: "0: No tiene vehiculo Propio; 1: Vehiculo propio"
     }
   }, {
     sequelize,

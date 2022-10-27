@@ -1,7 +1,7 @@
 const models = require('../../../database').models
 
-const crearChofereDB = async(cliente) => {
-    let respuesta = await models.choferes.create(cliente)
+const crearChofereDB = async(chofer) => {
+    let respuesta = await models.choferes.create(chofer)
     return respuesta
 }
 

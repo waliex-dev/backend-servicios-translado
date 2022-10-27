@@ -7,6 +7,7 @@ var _pagos = require("./pagos");
 var _servicios = require("./servicios");
 var _usuarios = require("./usuarios");
 var _vehiculos = require("./vehiculos");
+var _vehiculos_choferes = require("./vehiculos_choferes");
 
 function initModels(sequelize) {
   var choferes = _choferes(sequelize, DataTypes);
@@ -17,11 +18,14 @@ function initModels(sequelize) {
   var servicios = _servicios(sequelize, DataTypes);
   var usuarios = _usuarios(sequelize, DataTypes);
   var vehiculos = _vehiculos(sequelize, DataTypes);
+  var vehiculos_choferes = _vehiculos_choferes(sequelize, DataTypes);
 
   datos_bancarios.belongsTo(choferes, { as: "chofere", foreignKey: "chofereId"});
   choferes.hasMany(datos_bancarios, { as: "datos_bancarios", foreignKey: "chofereId"});
   linea_servicio.belongsTo(choferes, { as: "chofere", foreignKey: "chofereId"});
   choferes.hasMany(linea_servicio, { as: "linea_servicios", foreignKey: "chofereId"});
+  vehiculos_choferes.belongsTo(choferes, { as: "chofere", foreignKey: "chofereId"});
+  choferes.hasMany(vehiculos_choferes, { as: "vehiculos_choferes", foreignKey: "chofereId"});
   servicios.belongsTo(clientes, { as: "cliente", foreignKey: "clienteId"});
   clientes.hasMany(servicios, { as: "servicios", foreignKey: "clienteId"});
   pagos.belongsTo(linea_servicio, { as: "lineaServicio", foreignKey: "lineaServicioId"});
@@ -32,6 +36,8 @@ function initModels(sequelize) {
   usuarios.hasMany(servicios, { as: "servicios", foreignKey: "usuarios_id"});
   linea_servicio.belongsTo(vehiculos, { as: "vehiculo", foreignKey: "vehiculoId"});
   vehiculos.hasMany(linea_servicio, { as: "linea_servicios", foreignKey: "vehiculoId"});
+  vehiculos_choferes.belongsTo(vehiculos, { as: "vehiculo", foreignKey: "vehiculoId"});
+  vehiculos.hasMany(vehiculos_choferes, { as: "vehiculos_choferes", foreignKey: "vehiculoId"});
 
   return {
     choferes,
@@ -42,6 +48,7 @@ function initModels(sequelize) {
     servicios,
     usuarios,
     vehiculos,
+    vehiculos_choferes,
   };
 }
 module.exports = initModels;
