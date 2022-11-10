@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     nacionalidad: {
       type: DataTypes.STRING(45),
-      allowNull: true
+      allowNull: false
     },
     rut: {
       type: DataTypes.STRING(9),
@@ -41,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     vehiculo_propio: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       comment: "0: No tiene vehiculo Propio; 1: Vehiculo propio"
     }
   }, {

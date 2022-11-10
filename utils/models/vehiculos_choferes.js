@@ -22,6 +22,11 @@ module.exports = function(sequelize, DataTypes) {
         model: 'vehiculos',
         key: 'id'
       }
+    },
+    estado: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      comment: "0: No seleccionado; 1: Seleccionado"
     }
   }, {
     sequelize,
