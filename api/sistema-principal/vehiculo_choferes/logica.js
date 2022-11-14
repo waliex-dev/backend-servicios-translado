@@ -22,18 +22,12 @@ const crearVehiculoChoferDB = async(vehiculo_chofer) => {
                         )
                 }
             }
-
-            
         })
         return true;
     } catch (error) {
         console.log(error)
         return false;
     }
-
-
-    // let respuesta = await models.vehiculos_choferes.create(vehiculo_chofer)
-    // return respuesta
 }
 const consultarVehiculoChoferDB  = async(vehiculo_chofer) => {
     let respuesta = await models.vehiculos_choferes.findOne({where:{chofereId:vehiculo_chofer.chofereId, vehiculoId:vehiculo_chofer.vehiculoId}})
