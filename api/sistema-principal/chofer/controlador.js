@@ -34,7 +34,7 @@ const editarChofer = async(req,res) => {
     try{
         let respuesta = await logicaDB.actualizarChoferDB(id_chofer,chofer);
         return res.status(200).json({'filas':respuesta})
-    }catch(error){ 
+    }catch(error){
         console.log(error)
         return res.status(500).json({error})
     }

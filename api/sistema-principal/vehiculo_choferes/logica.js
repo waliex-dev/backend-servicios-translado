@@ -1,6 +1,7 @@
 const models = require('../../../database').models
 const vehiculo_chofer_model =  require('../../../database').models.vehiculos_choferes
 const sequelize_vehiculoChofer = vehiculo_chofer_model.sequelize
+const { Op } = require("sequelize");
 
 const crearVehiculoChoferDB = async(vehiculo_chofer) => {
     let idVehiculoChofer;
@@ -42,22 +43,35 @@ const eliminarVehiculoChoferDB  = async(chofereId) => {
     let respuesta = await models.vehiculos_choferes.destroy({where:{chofereId}})
     return respuesta
 }
-const consultarVehiculosChoferIdDB  = async(chofereId) => {
-    let respuesta = await models.vehiculos_choferes.findAll({where:{chofereId}})
-    return respuesta
-}
-
 
 const cambiarEstadoVehiculoChoferDB = async(vehiculo_chofer) => {
     let respuesta = await models.vehiculos_choferes.update({estado},{where:{chofereId:vehiculo_chofer.chofereId, vehiculoId:vehiculo_chofer.vehiculoId}})
     return respuesta
 }
+
+const consultarVehiculosChoferIdDB  = async(chofereId) => {
+    let respuesta = await models.vehiculos_choferes.findAll({include:{model:models.vehiculos,as:'vehiculo'},where:{chofereId}})
+    return respuesta
+}
+
+const consultarIdVehiculosChoferDB = async(chofereId) => {
+    let respuesta = await models.vehiculos_choferes.findAll({where:{chofereId},raw:true}).then(enlaces => enlaces.map(enlace => enlace.vehiculoId));
+    return respuesta
+}
+
+const consultarVehiculoActivosDB = async(ids) => {
+    let respuesta = await models.vehiculos.findAll({where:{estado:1, id:{[Op.notIn]:ids}}})
+    return respuesta
+}
+
 module.exports = {
     crearVehiculoChoferDB,
     consultarVehiculoChoferDB,
     actualizarVehiculoChoferDB,
     eliminarVehiculoChoferDB,
     consultarVehiculosChoferIdDB,
-    cambiarEstadoVehiculoChoferDB
+    cambiarEstadoVehiculoChoferDB,
+    consultarIdVehiculosChoferDB,
+    consultarVehiculoActivosDB
 
 }

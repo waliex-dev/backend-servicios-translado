@@ -30,15 +30,17 @@ const eliminarVehiculoChofer = async(req,res) => {
     try{
         let respuesta = await logicaDB.eliminarVehiculoChoferDB(id_vehiculo_chofer)
         return res.status(200).json({'filas':respuesta})
-    }catch(error){ 
+    }catch(error){
         console.log(error)
         return res.status(500).json({error})}
 }
 const consultarvehiculoChoferPorIdChofer = async(req,res) => {
     let id_chofer = req.params.id_chofer
     try{
-        let respuesta = await logicaDB.consultarVehiculoChoferPorIdChoferDB(id_chofer)
-        return res.status(200).json({'vehiculo_chofer':respuesta})
+        let respuesta = await logicaDB.consultarVehiculosChoferIdDB(id_chofer)
+        let respuesta_id_vehiculos = await logicaDB.consultarIdVehiculosChoferDB(id_chofer)
+        let respuesta_vehiculos_no_asociados = await logicaDB.consultarVehiculoActivosDB(respuesta_id_vehiculos)
+        return res.status(200).json({'vehiculos_chofer':respuesta,'vehiculos':respuesta_vehiculos_no_asociados})
     }catch(error){return res.status(500).json({error})}
 }
 module.exports = {
