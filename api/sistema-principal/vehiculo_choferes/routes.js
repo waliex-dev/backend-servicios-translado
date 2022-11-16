@@ -5,5 +5,6 @@ const controlador = require('./controlador')
 router.post('/crear_vehiculo_chofer',controlador.crearVehiculoChofer)
 router.delete('/eliminar_vehiculo_chofer/:id_vehiculo_chofer',controlador.eliminarVehiculoChofer)
 router.get('/consultar_vehiculo_chofer_id_chofer/:id_chofer',controlador.consultarvehiculoChoferPorIdChofer)
+router.post('/crear_vehiculo_enlace_chofer/:id_chofer',controlador.crearVehiculoYEnlazarAChofer)
 
 module.exports = router

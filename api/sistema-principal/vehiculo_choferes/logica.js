@@ -1,5 +1,7 @@
 const models = require('../../../database').models
 const vehiculo_chofer_model =  require('../../../database').models.vehiculos_choferes
+const vehiculo_model = require('../../../database').models.vehiculos
+const sequelize_vehiculo = vehiculo_model.sequelize
 const sequelize_vehiculoChofer = vehiculo_chofer_model.sequelize
 const { Op } = require("sequelize");
 
@@ -29,6 +31,26 @@ const crearVehiculoChoferDB = async(vehiculo_chofer) => {
         console.log(error)
         return false;
     }
+}
+
+const crearVehiculoYEnlazarAChoferDB = async(vehiculo,id_chofer) => {
+    console.log(id_chofer)
+    let vehiculo_chofer = { estado:1, chofereId:Number(id_chofer), vehiculoId:null}
+    try{
+        await sequelize_vehiculo.transaction(async(t) => {
+            let idVehiculo = await models.vehiculos.create(vehiculo,{transaction:t}).then( function(x){
+                return x.id
+            })
+            vehiculo_chofer.vehiculoId = idVehiculo
+            console.log('datos pa',vehiculo_chofer)
+            let respuesta_vehiculo_chofer = await models.vehiculos_choferes.create(vehiculo_chofer,{transaction:t})
+        })
+        return true
+    } catch(error){
+        console.log(error)
+        return false
+    }
+
 }
 const consultarVehiculoChoferDB  = async(vehiculo_chofer) => {
     let respuesta = await models.vehiculos_choferes.findOne({where:{chofereId:vehiculo_chofer.chofereId, vehiculoId:vehiculo_chofer.vehiculoId}})
@@ -72,6 +94,6 @@ module.exports = {
     consultarVehiculosChoferIdDB,
     cambiarEstadoVehiculoChoferDB,
     consultarIdVehiculosChoferDB,
-    consultarVehiculoActivosDB
-
+    consultarVehiculoActivosDB,
+    crearVehiculoYEnlazarAChoferDB
 }

@@ -11,7 +11,11 @@ const actualizarChoferDB = async(id,chofer) => {
 }
 
 const consultarChofereDB = async(id) => {
-    let respuesta = await models.choferes.findOne({where:{id}})
+    let respuesta = await models.choferes.findOne({
+        include:{model:models.vehiculos_choferes,
+                as:'vehiculos_choferes',
+                include:{model:models.vehiculos,as:'vehiculo'}},
+        where:{id}})
     return respuesta
 }
 

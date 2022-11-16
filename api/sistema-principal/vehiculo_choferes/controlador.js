@@ -17,9 +17,31 @@ const crearVehiculoChofer = async(req,res) => {
         return res.status(200).json({
             'vehiculo_chofer':respuesta,
             "vinculado":true,
-            "mensaje": "Vehiculo vinculado con exito"
+            "mensaje": "Vehículo vinculado con exito"
         })
 
+    }catch(error){
+        console.log(error)
+    return res.status(500).json({error})}
+}
+
+const crearVehiculoYEnlazarAChofer = async(req,res) => {
+    let id_chofer = req.params.id_chofer
+    let vehiculo = req.body
+    try {
+        await Schema.vehiculoSchemaCrear.validateAsync(vehiculo);
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(200).json({'error':"error de validacion de campos. El campo: "+err.details[0].path});
+    }
+    try{
+        let respuesta = await logicaDB.crearVehiculoYEnlazarAChoferDB(vehiculo,id_chofer)
+        return res.status(200).json({
+            'vehiculo_chofer':respuesta,
+            "vinculado":true,
+            "mensaje": "Vehículo creado y vinculado con exito"
+        })
     }catch(error){
         console.log(error)
     return res.status(500).json({error})}
@@ -45,6 +67,7 @@ const consultarvehiculoChoferPorIdChofer = async(req,res) => {
 }
 module.exports = {
     crearVehiculoChofer,
+    crearVehiculoYEnlazarAChofer,
     eliminarVehiculoChofer,
     consultarvehiculoChoferPorIdChofer
 }
