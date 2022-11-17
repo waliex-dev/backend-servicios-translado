@@ -15,7 +15,7 @@ const crearVehiculo = async(req,res) => {
         return res.status(200).json({'vehiculo':respuesta})
     }catch(error){
         console.log(error)
-    return res.status(500).json({error})}
+        return res.status(500).json({error})}
 }
 const editarVehiculo = async(req,res) => {
     let id_vehiculo = req.params.id_vehiculo

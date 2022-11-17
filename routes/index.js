@@ -9,6 +9,7 @@ const chofer = require('../api/sistema-principal/chofer/routes')
 const dato_bancario = require('../api/sistema-principal/dato_bancario/routes')
 const vehiculo = require('../api/sistema-principal/vehiculo/routes')
 const vehiculo_chofer = require('../api/sistema-principal/vehiculo_choferes/routes')
+const servicio = require('../api/sistema-principal/servicio/routes')
 
 router.use('/inicio_sesion',inicio_sesion)
 router.use('/usuario',usuario)
@@ -17,5 +18,6 @@ router.use('/chofer',chofer)
 router.use('/dato_bancario',dato_bancario)
 router.use('/vehiculo',vehiculo)
 router.use('/vehiculo_chofer',vehiculo_chofer)
+router.use('/servicio',servicio)
 
 module.exports = router

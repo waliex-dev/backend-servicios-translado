@@ -14,6 +14,10 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 
+app.get('/prueba', (req,res) => {
+    res.send('servidor corriendo')
+})
+
 app.use(process.env.PREFIJO,indexRouter)
 
 //DESPLIEGUE

@@ -12,14 +12,12 @@ const crearVehiculoChofer = async(req,res) => {
         return res.status(200).json({'error':"error de validacion de campos. El campo: "+err.details[0].path});
     }
     try{
-
         let respuesta = await logicaDB.crearVehiculoChoferDB(vehiculo_chofer)
         return res.status(200).json({
             'vehiculo_chofer':respuesta,
             "vinculado":true,
             "mensaje": "Vehículo vinculado con exito"
         })
-
     }catch(error){
         console.log(error)
     return res.status(500).json({error})}
