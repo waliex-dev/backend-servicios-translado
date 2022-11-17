@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     nacionalidad: {
       type: DataTypes.STRING(45),
-      allowNull: false
+      allowNull: true
     },
     rut: {
       type: DataTypes.STRING(9),

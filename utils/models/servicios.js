@@ -52,7 +52,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    usuarios_id: {
+    usuarioId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -84,7 +84,7 @@ module.exports = function(sequelize, DataTypes) {
         name: "fk_servicios_usuarios1_idx",
         using: "BTREE",
         fields: [
-          { name: "usuarios_id" },
+          { name: "usuarioId" },
         ]
       },
     ]

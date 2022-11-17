@@ -32,8 +32,8 @@ function initModels(sequelize) {
   linea_servicio.hasMany(pagos, { as: "pagos", foreignKey: "lineaServicioId"});
   linea_servicio.belongsTo(servicios, { as: "servicio", foreignKey: "servicioId"});
   servicios.hasMany(linea_servicio, { as: "linea_servicios", foreignKey: "servicioId"});
-  servicios.belongsTo(usuarios, { as: "usuario", foreignKey: "usuarios_id"});
-  usuarios.hasMany(servicios, { as: "servicios", foreignKey: "usuarios_id"});
+  servicios.belongsTo(usuarios, { as: "usuario", foreignKey: "usuarioId"});
+  usuarios.hasMany(servicios, { as: "servicios", foreignKey: "usuarioId"});
   linea_servicio.belongsTo(vehiculos, { as: "vehiculo", foreignKey: "vehiculoId"});
   vehiculos.hasMany(linea_servicio, { as: "linea_servicios", foreignKey: "vehiculoId"});
   vehiculos_choferes.belongsTo(vehiculos, { as: "vehiculo", foreignKey: "vehiculoId"});
