@@ -18,6 +18,7 @@ const lineaServicioSchemaCrearArray = Joi.object({
     fecha: Joi.date().required(),
     numero_guia: Joi.number().allow(null),
     pagado: Joi.number().allow(null).min(0).max(1),
+    patente_trailer:Joi.string().allow(''),
     total_pago:Joi.number().allow(null),
     vehiculoId:Joi.number().required(),
     chofereId:Joi.number().required(),
@@ -28,6 +29,7 @@ const lineaServicioSchemaCrearIndividual = Joi.object({
     numero_guia: Joi.number().allow(null),
     pagado: Joi.number().allow(null).min(0).max(1),
     total_pago:Joi.number().allow(null),
+    patente_trailer:Joi.string().allow(''),
     vehiculoId:Joi.number().required(),
     chofereId:Joi.number().required(),
     servicioId:Joi.number().required()

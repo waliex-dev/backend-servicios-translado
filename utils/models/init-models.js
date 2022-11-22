@@ -5,6 +5,7 @@ var _datos_bancarios = require("./datos_bancarios");
 var _linea_servicio = require("./linea_servicio");
 var _pagos = require("./pagos");
 var _servicios = require("./servicios");
+var _traileres = require("./traileres");
 var _usuarios = require("./usuarios");
 var _vehiculos = require("./vehiculos");
 var _vehiculos_choferes = require("./vehiculos_choferes");
@@ -16,6 +17,7 @@ function initModels(sequelize) {
   var linea_servicio = _linea_servicio(sequelize, DataTypes);
   var pagos = _pagos(sequelize, DataTypes);
   var servicios = _servicios(sequelize, DataTypes);
+  var traileres = _traileres(sequelize, DataTypes);
   var usuarios = _usuarios(sequelize, DataTypes);
   var vehiculos = _vehiculos(sequelize, DataTypes);
   var vehiculos_choferes = _vehiculos_choferes(sequelize, DataTypes);
@@ -46,6 +48,7 @@ function initModels(sequelize) {
     linea_servicio,
     pagos,
     servicios,
+    traileres,
     usuarios,
     vehiculos,
     vehiculos_choferes,

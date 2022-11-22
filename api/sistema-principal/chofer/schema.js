@@ -9,8 +9,7 @@ const choferSchemaCrear = Joi.object({
     celular:Joi.number().required(),
     correo: Joi.string().allow('').min(5).max(45),
     direccion: Joi.string().allow('',null).min(3).max(45),
-    estado:Joi.number().required().min(0).max(1),
-    vehiculo_propio:Joi.number().required().min(0).max(2)
+    estado:Joi.number().required().min(0).max(1)
 })
 
 const choferSchemaEditar = Joi.object({
@@ -20,8 +19,7 @@ const choferSchemaEditar = Joi.object({
     rut:Joi.string().min(8).max(10).required(),
     celular:Joi.number().required(),
     correo: Joi.string().allow('').min(5).max(45),
-    direccion: Joi.string().allow('',null).min(3).max(45),
-    vehiculo_propio:Joi.number().required().min(0).max(2)
+    direccion: Joi.string().allow('',null).min(3).max(45)
 })
 
 module.exports ={

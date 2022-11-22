@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     fecha: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: false
     },
     numero_guia: {
       type: DataTypes.INTEGER,
@@ -22,6 +22,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     total_pago: {
       type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    patente_trailer: {
+      type: DataTypes.STRING(45),
       allowNull: true
     },
     vehiculoId: {

@@ -13,11 +13,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     fecha: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: false
     },
     estado: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       comment: "0:cancelado; 1:en proceso; 2:terminado"
     },
     tipo: {

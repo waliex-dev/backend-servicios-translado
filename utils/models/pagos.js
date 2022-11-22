@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     monto: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: false
     },
     tipo: {
       type: DataTypes.INTEGER,
@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     fecha: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: false
     },
     observacion: {
       type: DataTypes.STRING(100),
