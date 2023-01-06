@@ -2,6 +2,7 @@ var DataTypes = require("sequelize").DataTypes;
 var _choferes = require("./choferes");
 var _clientes = require("./clientes");
 var _datos_bancarios = require("./datos_bancarios");
+var _ingresos = require("./ingresos");
 var _linea_servicio = require("./linea_servicio");
 var _pagos = require("./pagos");
 var _servicios = require("./servicios");
@@ -14,6 +15,7 @@ function initModels(sequelize) {
   var choferes = _choferes(sequelize, DataTypes);
   var clientes = _clientes(sequelize, DataTypes);
   var datos_bancarios = _datos_bancarios(sequelize, DataTypes);
+  var ingresos = _ingresos(sequelize, DataTypes);
   var linea_servicio = _linea_servicio(sequelize, DataTypes);
   var pagos = _pagos(sequelize, DataTypes);
   var servicios = _servicios(sequelize, DataTypes);
@@ -32,6 +34,8 @@ function initModels(sequelize) {
   clientes.hasMany(servicios, { as: "servicios", foreignKey: "clienteId"});
   pagos.belongsTo(linea_servicio, { as: "lineaServicio", foreignKey: "lineaServicioId"});
   linea_servicio.hasMany(pagos, { as: "pagos", foreignKey: "lineaServicioId"});
+  ingresos.belongsTo(servicios, { as: "servicio", foreignKey: "servicioId"});
+  servicios.hasMany(ingresos, { as: "ingresos", foreignKey: "servicioId"});
   linea_servicio.belongsTo(servicios, { as: "servicio", foreignKey: "servicioId"});
   servicios.hasMany(linea_servicio, { as: "linea_servicios", foreignKey: "servicioId"});
   servicios.belongsTo(usuarios, { as: "usuario", foreignKey: "usuarioId"});
@@ -45,6 +49,7 @@ function initModels(sequelize) {
     choferes,
     clientes,
     datos_bancarios,
+    ingresos,
     linea_servicio,
     pagos,
     servicios,

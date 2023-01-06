@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     nombre: {
       type: DataTypes.STRING(70),
-      allowNull: true
+      allowNull: false
     },
     fecha: {
       type: DataTypes.DATE,
@@ -43,6 +43,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true,
       comment: "Valor a cuanto cambio"
+    },
+    tipo_servicio: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      comment: "0:transporte ; 1:otros"
     },
     clienteId: {
       type: DataTypes.INTEGER,

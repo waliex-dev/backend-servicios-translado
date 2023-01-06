@@ -28,7 +28,28 @@ const crearServicio = async(req,res) => {
             "mensaje": "Servicio creado con exito"
         })
     }catch(error){
-        console.log(error)
+        console.log('error',error)
+        return res.status(500).json({error})
+    }
+}
+
+const crearServicioOtros = async(req,res) => {
+    let servicio = req.body.servicio
+    try {
+        await Schema.servicioSchemaCrear.validateAsync(servicio);
+    }
+    catch (err) {
+        console.log(err)
+        res.status(400).json({'error':"error de validacion de campos. El campo: "+err.details[0].path});
+        return;
+    }
+    try{
+        let respuesta = await logicaDB.crearServicioOtrosDB(servicio)
+        return res.status(200).json({
+            'servicio':respuesta,
+        })
+    }catch(error){
+        console.log('error',error)
         return res.status(500).json({error})
     }
 }
@@ -43,10 +64,21 @@ const verServicio = async(req,res) => {
     }
 }
 
+const verServicioOtros = async(req,res) => {
+    let id_servicio = req.params.id
+    try{
+        let respuesta = await logicaDB.verServicioOtrosDB(id_servicio)
+        return res.status(200).json({'servicio':respuesta})
+    }catch(error){
+        return res.status(500).json({error})
+    }
+}
+
 const verServiciosPorClienteId = async(req,res) => {
     let id_cliente = req.params.id_cliente
+    let estado = req.params.estado
     try{
-        let respuesta = await logicaDB.verServiciosPorClienteIdDB(id_cliente)
+        let respuesta = await logicaDB.verServiciosPorClienteIdDB(id_cliente,estado)
         return res.status(200).json({'servicios':respuesta})
     }catch(error){
         return res.status(500).json({error})
@@ -91,12 +123,23 @@ const editarLineaServicio = async(req,res) => {
     }
 }
 
+const eliminarLineaServicio = async(req,res) => {
+    let id = req.params.id_linea_servicio
+    try{
+        let respuesta = await logicaDB.eliminarLineaServicioDB(id)
+        return res.status(200).json({'filas':respuesta})
+    }catch(error){
+        return res.status(500).json({error})
+    }
+}
+
 const crearPago = async(req,res) => {
     let pago = req.body
     try{
         let respuesta = await logicaDB.crearPagoDB(pago)
         return res.status(200).json({'pago':respuesta})
     }catch(error){
+        console.log(error)
         return res.status(500).json({error})
     }
 }
@@ -112,6 +155,26 @@ const editarPago = async(req,res) => {
     }
 }
 
+const eliminarPago = async(req,res) => {
+    let id = req.params.id_pago
+    try{
+        let respuesta = await logicaDB.eliminarPagoDB(id)
+        return res.status(200).json({'filas':respuesta})
+    }catch(error){
+        return res.status(500).json({error})
+    }
+}
+
+const obtenerPagos = async(req,res) => {
+    let id_linea_servicio = req.params.id_linea_servicio
+    try{
+        let respuesta = await logicaDB.obtenerPagosDB(id_linea_servicio)
+        return res.status(200).json({'pagos':respuesta})
+    }catch(error){
+        return res.status(500).json({error})
+    }
+}
+
 const obtenerVehiculosAsociadosChoferId = async(req,res) => {
     let id_chofer = req.params.id_chofer
     try{
@@ -122,14 +185,43 @@ const obtenerVehiculosAsociadosChoferId = async(req,res) => {
     }
 }
 
+const crearIngreso = async(req,res) => {
+    let ingreso = req.body
+    try{
+        let respuesta = await logicaDB.crearIngresoDB(ingreso)
+        return res.status(200).json({'ingreso':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const eliminarIngreso = async(req,res) => {
+    let id = req.params.id_ingreso
+    try{
+        let respuesta = await logicaDB.eliminarIngresoDB(id)
+        return res.status(200).json({'filas':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
 module.exports = {
     crearServicio,
+    crearServicioOtros,
     verServicio,
+    verServicioOtros,
     verServiciosPorClienteId,
     cambiarEstadoServicio,
     crearLineaServicio,
     editarLineaServicio,
+    eliminarLineaServicio,
     crearPago,
     editarPago,
-    obtenerVehiculosAsociadosChoferId
+    eliminarPago,
+    obtenerPagos,
+    obtenerVehiculosAsociadosChoferId,
+    crearIngreso,
+    eliminarIngreso
 }

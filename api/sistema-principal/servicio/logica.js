@@ -32,17 +32,29 @@ const crearServicioDB = async(servicio, lineas) => {
     }
 }
 
+const crearServicioOtrosDB = async(servicio) => {
+    let respuesta = await models.servicios.create(servicio)
+    return respuesta
+}
+
 const verServicioDB = async(id) => {
     let respuesta = await models.servicios.findOne({
-        include:{model:models.linea_servicio, as:'linea_servicios',
-                include:[{model:models.vehiculos, as:'vehiculo'},{model:models.choferes,as:'chofere'}]
-        },
+        include:[{model:models.linea_servicio, as:'linea_servicios',
+                include:[{model:models.vehiculos, as:'vehiculo'},{model:models.choferes,as:'chofere'},{model:models.pagos,as:'pagos'}]
+        },{model:models.clientes, as:'cliente'},{model:models.usuarios,as:'usuario'}],
         where:{id}})
     return respuesta
 }
 
-const verServiciosPorClienteIdDB = async(id_cliente) => {
-    let respuesta = await models.servicios.findAll({where:{clienteId:id_cliente}})
+const verServicioOtrosDB = async(id) => {
+    let respuesta = await models.servicios.findOne({
+        include:[{model:models.clientes, as:'cliente'},{model:models.usuarios,as:'usuario'},{model:models.ingresos,as:'ingresos'}],
+        where:{id}})
+    return respuesta
+}
+
+const verServiciosPorClienteIdDB = async(id_cliente,estado) => {
+    let respuesta = await models.servicios.findAll({where:{clienteId:id_cliente,estado}})
     return respuesta
 }
 
@@ -61,6 +73,11 @@ const editarLineaServicioDB = async(id,linea_servicio) => {
     return respuesta
 }
 
+const eliminarLineaServicioDB = async(id) => {
+    let respuesta = await models.linea_servicio.destroy({where:{id}})
+    return respuesta
+}
+
 const crearPagoDB = async(pago) => {
     let respuesta = await models.pagos.create(pago)
     return respuesta
@@ -68,6 +85,16 @@ const crearPagoDB = async(pago) => {
 
 const editarPagoDB = async(id,pago) => {
     let respuesta = await models.pagos.update({pago},{where:{id}})
+    return respuesta
+}
+
+const eliminarPagoDB = async(id) => {
+    let respuesta = await models.pagos.destroy({where:{id}})
+    return respuesta
+}
+
+const obtenerPagosDB = async(id_linea_servicio) => {
+    let respuesta = await models.pagos.findAll({where:{lineaServicioId:id_linea_servicio}})
     return respuesta
 }
 
@@ -79,14 +106,31 @@ const obtenerVehiculosAsociadosChoferIdDB = async(id_chofer) => {
     return respuesta
 }
 
+const crearIngresoDB = async(ingreso) => {
+    let respuesta = await models.ingresos.create(ingreso)
+    return respuesta
+}
+
+const eliminarIngresoDB = async(id) => {
+    let respuesta = await models.ingresos.destroy({where:{id}})
+    return respuesta
+}
+
 module.exports = {
     crearServicioDB,
+    crearServicioOtrosDB,
     verServicioDB,
+    verServicioOtrosDB,
     verServiciosPorClienteIdDB,
     cambiarEstadoServicioDB,
     crearLineaServicioDB,
     editarLineaServicioDB,
+    eliminarLineaServicioDB,
     crearPagoDB,
     editarPagoDB,
-    obtenerVehiculosAsociadosChoferIdDB
+    eliminarPagoDB,
+    obtenerPagosDB,
+    obtenerVehiculosAsociadosChoferIdDB,
+    crearIngresoDB,
+    eliminarIngresoDB
 }
