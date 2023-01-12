@@ -1,4 +1,6 @@
 const models = require('../../../database').models
+const { Op,Sequelize } = require('sequelize')
+const { search } = require('../cliente/routes')
 
 const crearChofereDB = async(chofer) => {
     let respuesta = await models.choferes.create(chofer)
@@ -34,11 +36,51 @@ const cambiarEstadoChofereDB = async(id,estado) => {
     return respuesta
 }
 
+const buscarChoferActivosDB = async(search) => {
+    let respuesta = await models.choferes.findAll({
+        where:{
+            estado:1,
+            [Op.or]:[
+                {nacionalidad:{[Op.like]:'%'+search+'%'}},
+                {rut:{[Op.like]:'%'+search+'%'}},
+                {celular:{[Op.like]:'%'+search+'%'}},
+                {correo:{[Op.like]:'%'+search+'%'}},
+                Sequelize.where(Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('apellidos')),
+                {
+                    [Op.like]: '%' + search + '%',
+                })
+            ]
+        }
+    })
+    return respuesta
+}
+
+const buscarChoferInactivosDB = async(search) => {
+    let respuesta = await models.choferes.findAll({
+        where:{
+            estado:0,
+            [Op.or]:[
+                {nacionalidad:{[Op.like]:'%'+search+'%'}},
+                {rut:{[Op.like]:'%'+search+'%'}},
+                {celular:{[Op.like]:'%'+search+'%'}},
+                {correo:{[Op.like]:'%'+search+'%'}},
+                Sequelize.where(Sequelize.fn('concat', Sequelize.col('nombre'), ' ', Sequelize.col('apellidos')),
+                {
+                    [Op.like]: '%' + search + '%',
+                })
+            ]
+        }
+    })
+    return respuesta
+}
+
 module.exports = {
     crearChofereDB,
     actualizarChoferDB,
     consultarChofereDB,
     consultarChoferesActivosDB,
     consultarChoferesInactivosDB,
-    cambiarEstadoChofereDB
+    cambiarEstadoChofereDB,
+    buscarChoferActivosDB,
+    buscarChoferInactivosDB
 }

@@ -1,4 +1,5 @@
 const models = require('../../../database').models
+const { Op, Sequelize } = require('sequelize')
 
 const crearVehiculoDB = async(vehiculo) => {
     let respuesta = await models.vehiculos.create(vehiculo)
@@ -24,11 +25,41 @@ const cambiarEstadoVehiculoDB = async(id,estado) => {
     let respuesta = await models.vehiculos.update({estado},{where:{id}})
     return respuesta
 }
+const buscarVehiculoActivosDB = async(search) => {
+    let respuesta = await models.vehiculos.findAll({
+        where:{
+            estado:1,
+            [Op.or]:{
+                patente:{[Op.like]:'%'+search+'%'},
+                color:{[Op.like]:'%'+search+'%'},
+                tipo:{[Op.like]:'%'+search+'%'}
+            }
+        }
+    })
+    return respuesta
+}
+const buscarVehiculoInactivosDB = async(search) => {
+    let respuesta = await models.vehiculos.findAll({
+        where:{
+            estado:0,
+            [Op.or]:[
+                {patente:{[Op.like]:'%'+search+'%'}},
+                {color:{[Op.like]:'%'+search+'%'}},
+                {tipo:{[Op.like]:'%'+search+'%'}}
+            ]
+        }
+    })
+    return respuesta
+}
+
+
 module.exports = {
     crearVehiculoDB,
     actualizarVehiculoDB,
     consultarVehiculoDB,
     consultarVehiculoActivosDB,
     consultarVehiculoInactivosDB,
-    cambiarEstadoVehiculoDB
+    cambiarEstadoVehiculoDB,
+    buscarVehiculoActivosDB,
+    buscarVehiculoInactivosDB
 }

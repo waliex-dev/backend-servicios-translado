@@ -8,6 +8,7 @@ router.get('/consultar_vehiculo/:id_vehiculo',controlador.consultarVehiculo)
 router.get('/consultar_vehiculos_activos',controlador.consultarVehiculosActivos)
 router.get('/consultar_vehiculos_inactivos',controlador.consultarVehiculosInactivos)
 router.put('/cambiar_estado_vehiculo/:id_vehiculo',controlador.cambiarEstadoVehiculo)
-
+router.get('/buscar_vehiculo_activos/:search',controlador.buscarVehiculoActivos)
+router.get('/buscar_vehiculo_inactivos/:search',controlador.buscarVehiculoInactivos)
 
 module.exports = router

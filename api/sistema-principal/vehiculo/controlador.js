@@ -59,11 +59,29 @@ const cambiarEstadoVehiculo = async(req,res) => {
         return res.status(200).json({'filas':respuesta})
     }catch(error){return res.status(500).json({error})}
 }
+const buscarVehiculoActivos = async(req,res) => {
+    let search = req.params.search
+    try{
+        let respuesta = await logicaDB.buscarVehiculoActivosDB(search)
+        return res.status(200).json({'vehiculos':respuesta})
+    }catch(error){return res.status(500).json({error})}
+}
+
+const buscarVehiculoInactivos = async(req,res) => {
+    let search = req.params.search
+    try{
+        let respuesta = await logicaDB.buscarVehiculoInactivosDB(search)
+        return res.status(200).json({'vehiculos':respuesta})
+    }catch(error){return res.status(500).json({error})}
+}
+
 module.exports = {
     crearVehiculo,
     editarVehiculo,
     consultarVehiculo,
     consultarVehiculosActivos,
     consultarVehiculosInactivos,
-    cambiarEstadoVehiculo
+    cambiarEstadoVehiculo,
+    buscarVehiculoActivos,
+    buscarVehiculoInactivos
 }

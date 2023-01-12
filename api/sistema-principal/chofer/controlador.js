@@ -72,11 +72,29 @@ const cambiarEstadoChofer = async(req,res) => {
     }catch(error){return res.status(500).json({error})}
 }
 
+const buscarChoferActivos = async(req,res) => {
+    let search = req.params.search
+    try{
+        let respuesta = await logicaDB.buscarChoferActivosDB(search)
+        return res.status(200).json({'choferes':respuesta})
+    }catch(error){return res.status(500).json({error})}
+}
+
+const buscarChoferInactivos = async(req,res) => {
+    let search = req.params.search
+    try{
+        let respuesta = await logicaDB.buscarChoferInactivosDB(search)
+        return res.status(200).json({'choferes':respuesta})
+    }catch(error){return res.status(500).json({error})}
+}
+
 module.exports = {
     crearChofer,
     editarChofer,
     consultarChofer,
     consultarChoferesActivos,
     consultarChoferesInactivos,
-    cambiarEstadoChofer
+    cambiarEstadoChofer,
+    buscarChoferActivos,
+    buscarChoferInactivos
 }

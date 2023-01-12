@@ -63,11 +63,29 @@ const cambiarEstadoCliente = async(req,res) => {
     }catch(error){return res.status(500).json({error})}
 }
 
+const buscarClienteActivos = async(req,res) => {
+    let search = req.params.search
+    try{
+        let respuesta = await logicaDB.buscarClienteActivosDB(search)
+        return res.status(200).json({'clientes':respuesta})
+    }catch(error){return res.status(500).json({error})}
+}
+
+const buscarClientesInactivos = async(req,res) => {
+    let search = req.params.search
+    try{
+        let respuesta = await logicaDB.buscarClientesInactivosDB(search)
+        return res.status(200).json({'clientes':respuesta})
+    }catch(error){return res.status(500).json({error})}
+}
+
 module.exports = {
     crearCliente,
     editarCliente,
     consultarCliente,
     consultarClientesActivos,
     consultarClientesInactivos,
-    cambiarEstadoCliente
+    cambiarEstadoCliente,
+    buscarClienteActivos,
+    buscarClientesInactivos
 }
