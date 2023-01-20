@@ -7,6 +7,7 @@ const crearDatoBancario = async(req,res) => {
         await Schema.dato_bancarioSchemaCrear.validateAsync(dato_bancario);
     }
     catch (err) {
+        console.log(err)
         res.status(400).json({'error':"error de validacion de campos. El campo: "+err.details[0].path});
         return;
     }
