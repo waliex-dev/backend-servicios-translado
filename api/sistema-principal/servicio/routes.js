@@ -16,7 +16,27 @@ router.put('/editar_pago/:id_pago',controlador.editarPago)
 router.delete('/eliminar_pago/:id_pago',controlador.eliminarPago)
 router.get('/obtener_pagos/:id_linea_servicio',controlador.obtenerPagos)
 router.get('/obtener_vehiculos_asociados/:id_chofer',controlador.obtenerVehiculosAsociadosChoferId)
+
 router.post('/crear_ingreso',controlador.crearIngreso)
+router.put('/editar_ingreso/:id_ingreso',controlador.editarIngreso)
 router.delete('/eliminar_ingreso/:id_ingreso',controlador.eliminarIngreso)
+
+router.post('/crear_egreso',controlador.crearEgreso)
+router.put('/editar_egreso/:id_egreso',controlador.editarEgreso)
+router.delete('/eliminar_egreso/:id_egreso',controlador.eliminarEgreso)
+
+router.post('/crear_adelanto',controlador.crearAdelanto)
+router.put('/editar_adelanto/:id_adelanto',controlador.editarAdelanto)
+router.delete('/eliminar_adelanto/:id_adelanto',controlador.eliminarAdelanto)
+
+router.put('/editar_servicio/:id_servicio',controlador.editarServicio)
+
+router.get('/obtener_ingresos/:id_servicio',controlador.obtenerIngresos)
+router.get('/obtener_egresos/:id_servicio',controlador.obtenerEgresos)
+router.get('/obtener_adelantos/:id_servicio',controlador.obtenerAdelantos)
+
+router.post('/filtrar_ingresos/:id_servicio',controlador.filtrarIngresos)
+router.post('/filtrar_egresos/:id_servicio',controlador.filtrarEgresos)
+router.post('/filtrar_adelantos/:id_servicio',controlador.filtrarAdelantos)
 
 module.exports = router

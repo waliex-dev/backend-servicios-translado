@@ -1,6 +1,7 @@
 const models = require('../../../database').models
 
 const servicio_model = require('../../../database').models.servicios
+const { Op } = require("sequelize");
 
 const sequelize_servicio = servicio_model.sequelize
 
@@ -48,10 +49,26 @@ const verServicioDB = async(id) => {
 
 const verServicioOtrosDB = async(id) => {
     let respuesta = await models.servicios.findOne({
-        include:[{model:models.clientes, as:'cliente'},{model:models.usuarios,as:'usuario'},{model:models.ingresos,as:'ingresos'}],
+        include:[{model:models.clientes, as:'cliente'},{model:models.usuarios,as:'usuario'}],
         where:{id}})
     return respuesta
 }
+
+const obtenerIngresosDB = async(servicioId) => {
+    let respuesta = await models.ingresos.findAll({where:{servicioId}})
+    return respuesta
+}
+
+const obtenerEgresosDB = async(servicioId) => {
+    let respuesta = await models.egresos.findAll({where:{servicioId}})
+    return respuesta
+}
+
+const obtenerAdelantosDB = async(servicioId) => {
+    let respuesta = await models.adelantos.findAll({where:{servicioId}})
+    return respuesta
+}
+
 
 const verServiciosPorClienteIdDB = async(id_cliente,estado) => {
     let respuesta = await models.servicios.findAll({where:{clienteId:id_cliente,estado}})
@@ -111,8 +128,78 @@ const crearIngresoDB = async(ingreso) => {
     return respuesta
 }
 
+const editarIngresoDB = async(id,ingreso) => {
+    let respuesta = await models.ingresos.update(ingreso,{where:{id}})
+    return respuesta
+}
+
 const eliminarIngresoDB = async(id) => {
     let respuesta = await models.ingresos.destroy({where:{id}})
+    return respuesta
+}
+
+const crearEgresoDB = async(egreso) => {
+    let respuesta = await models.egresos.create(egreso)
+    return respuesta
+}
+
+const editarEgresoDB = async(id,egreso) => {
+    let respuesta = await models.egresos.update(egreso,{where:{id}})
+    return respuesta
+}
+
+const eliminarEgresoDB = async(id) => {
+    let respuesta = await models.egresos.destroy({where:{id}})
+    return respuesta
+}
+
+const crearAdelantoDB = async(adelanto) => {
+    let respuesta = await models.adelantos.create(adelanto)
+    return respuesta
+}
+
+const editarAdelantoDB = async(id,adelanto) => {
+    let respuesta = await models.adelantos.update(adelanto,{where:{id}})
+    return respuesta
+}
+
+const eliminarAdelantoDB = async(id) => {
+    let respuesta = await models.adelantos.destroy({where:{id}})
+    return respuesta
+}
+
+const editarServicioDB = async(id, servicio) => {
+    let respuesta = await models.servicios.update(servicio,{where:{id}})
+    return respuesta
+}
+
+const filtrarIngresosDB = async(servicioId,fecha_inicio, fecha_fin) => {
+    let respuesta = await models.ingresos.findAll({
+        where:{
+            fecha:{[Op.between]:[fecha_inicio,fecha_fin]},
+            servicioId
+        }
+    })
+    return respuesta
+}
+
+const filtrarEgresosDB = async(servicioId,fecha_inicio, fecha_fin) => {
+    let respuesta = await models.egresos.findAll({
+        where:{
+            fecha:{[Op.between]:[fecha_inicio,fecha_fin]},
+            servicioId
+        }
+    })
+    return respuesta
+}
+
+const filtrarAdelantosDB = async(servicioId,fecha_inicio, fecha_fin) => {
+    let respuesta = await models.adelantos.findAll({
+        where:{
+            fecha:{[Op.between]:[fecha_inicio,fecha_fin]},
+            servicioId
+        }
+    })
     return respuesta
 }
 
@@ -132,5 +219,19 @@ module.exports = {
     obtenerPagosDB,
     obtenerVehiculosAsociadosChoferIdDB,
     crearIngresoDB,
-    eliminarIngresoDB
+    editarIngresoDB,
+    eliminarIngresoDB,
+    crearEgresoDB,
+    editarEgresoDB,
+    eliminarEgresoDB,
+    crearAdelantoDB,
+    editarAdelantoDB,
+    eliminarAdelantoDB,
+    editarServicioDB,
+    obtenerIngresosDB,
+    obtenerEgresosDB,
+    obtenerAdelantosDB,
+    filtrarIngresosDB,
+    filtrarEgresosDB,
+    filtrarAdelantosDB
 }

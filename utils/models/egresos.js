@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('pagos', {
+  return sequelize.define('egresos', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -9,32 +9,27 @@ module.exports = function(sequelize, DataTypes) {
     },
     monto: {
       type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    tipo: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "0:abono; 1:pago; 2:entrega\n"
+      allowNull: true
     },
     fecha: {
       type: DataTypes.DATEONLY,
-      allowNull: false
-    },
-    observacion: {
-      type: DataTypes.STRING(100),
       allowNull: true
     },
-    lineaServicioId: {
+    observacion: {
+      type: DataTypes.STRING(200),
+      allowNull: true
+    },
+    servicioId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'linea_servicio',
+        model: 'servicios',
         key: 'id'
       }
     }
   }, {
     sequelize,
-    tableName: 'pagos',
+    tableName: 'egresos',
     timestamps: false,
     indexes: [
       {
@@ -46,10 +41,10 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "fk_pagos_linea_servicio1_idx",
+        name: "fk_egresos_servicios1_idx",
         using: "BTREE",
         fields: [
-          { name: "lineaServicioId" },
+          { name: "servicioId" },
         ]
       },
     ]

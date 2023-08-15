@@ -196,11 +196,172 @@ const crearIngreso = async(req,res) => {
     }
 }
 
+const editarIngreso = async(req,res) => {
+    let id_ingreso = req.params.id_ingreso
+    let ingreso = req.body
+    try{
+        let respuesta = await logicaDB.editarIngresoDB(id_ingreso,ingreso)
+        return res.status(200).json({'filas':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
 const eliminarIngreso = async(req,res) => {
     let id = req.params.id_ingreso
     try{
         let respuesta = await logicaDB.eliminarIngresoDB(id)
         return res.status(200).json({'filas':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const crearEgreso = async(req,res) => {
+    let egreso = req.body
+    try{
+        let respuesta = await logicaDB.crearEgresoDB(egreso)
+        return res.status(200).json({'egreso':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const editarEgreso = async(req,res) => {
+    let id_egreso = req.params.id_egreso
+    let egreso = req.body
+    try{
+        let respuesta = await logicaDB.editarEgresoDB(id_egreso,egreso)
+        return res.status(200).json({'filas':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const eliminarEgreso = async(req,res) => {
+    let id = req.params.id_egreso
+    try{
+        let respuesta = await logicaDB.eliminarEgresoDB(id)
+        return res.status(200).json({'filas':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const editarAdelanto = async(req,res) => {
+    let id_adelanto = req.params.id_adelanto
+    let adelanto = req.body
+    try{
+        let respuesta = await logicaDB.editarAdelantoDB(id_adelanto,adelanto)
+        return res.status(200).json({'filas':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const crearAdelanto = async(req,res) => {
+    let adelanto = req.body
+    try{
+        let respuesta = await logicaDB.crearAdelantoDB(adelanto)
+        return res.status(200).json({'adelanto':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const eliminarAdelanto = async(req,res) => {
+    let id = req.params.id_adelanto
+    try{
+        let respuesta = await logicaDB.eliminarAdelantoDB(id)
+        return res.status(200).json({'filas':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const editarServicio = async(req,res) => {
+    let id = req.params.id_servicio
+    let servicio = req.body
+    try{
+        let respuesta = await logicaDB.editarServicioDB(id,servicio)
+        return res.status(200).json({'filas':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const obtenerIngresos = async(req,res) => {
+    let id_servicio = req.params.id_servicio
+    try{
+        let respuesta = await logicaDB.obtenerIngresosDB(id_servicio)
+        return res.status(200).json({'ingresos':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const obtenerEgresos = async(req,res) => {
+    let id_servicio = req.params.id_servicio
+    try{
+        let respuesta = await logicaDB.obtenerEgresosDB(id_servicio)
+        return res.status(200).json({'egresos':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const obtenerAdelantos = async(req,res) => {
+    let id_servicio = req.params.id_servicio
+    try{
+        let respuesta = await logicaDB.obtenerAdelantosDB(id_servicio)
+        return res.status(200).json({'adelantos':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const filtrarIngresos = async(req,res) => {
+    let id_servicio = req.params.id_servicio
+    let fechas = req.body.fechas
+    try{
+        let respuesta = await logicaDB.filtrarIngresosDB(id_servicio,fechas.fecha_ini_ingre,fechas.fecha_fin_ingre)
+        return res.status(200).json({'ingresos':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const filtrarEgresos = async(req,res) => {
+    let id_servicio = req.params.id_servicio
+    let fechas = req.body.fechas
+    try{
+        let respuesta = await logicaDB.filtrarEgresosDB(id_servicio,fechas.fecha_ini_egre,fechas.fecha_fin_egre)
+        return res.status(200).json({'egresos':respuesta})
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error})
+    }
+}
+
+const filtrarAdelantos = async(req,res) => {
+    let id_servicio = req.params.id_servicio
+    let fechas = req.body.fechas
+    try{
+        let respuesta = await logicaDB.filtrarAdelantosDB(id_servicio,fechas.fecha_ini_adel,fechas.fecha_fin_adel)
+        return res.status(200).json({'adelantos':respuesta})
     }catch(error){
         console.log(error)
         return res.status(500).json({error})
@@ -223,5 +384,20 @@ module.exports = {
     obtenerPagos,
     obtenerVehiculosAsociadosChoferId,
     crearIngreso,
-    eliminarIngreso
+    editarIngreso,
+    eliminarIngreso,
+    crearEgreso,
+    editarEgreso,
+    eliminarEgreso,
+    crearAdelanto,
+    editarAdelanto,
+    eliminarAdelanto,
+    editarServicio,
+    obtenerIngresos,
+    obtenerEgresos,
+    obtenerAdelantos,
+    filtrarIngresos,
+    filtrarEgresos,
+    filtrarAdelantos
+
 }

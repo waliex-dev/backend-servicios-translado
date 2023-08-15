@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     fecha: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false
     },
     estado: {
@@ -47,7 +47,7 @@ module.exports = function(sequelize, DataTypes) {
     tipo_servicio: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      comment: "0:transporte ; 1:otros"
+      comment: "1:transporte ; 2:otros"
     },
     clienteId: {
       type: DataTypes.INTEGER,
