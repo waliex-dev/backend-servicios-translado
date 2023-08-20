@@ -87,11 +87,12 @@ const verServiciosPorClienteId = async(req,res) => {
 
 const cambiarEstadoServicio = async(req,res) => {
     let id = req.params.id
-    let estado = req.body
+    let estado = req.body.estado
     try{
         let respuesta = await logicaDB.cambiarEstadoServicioDB(id,estado)
         return res.status(200).json({'filas':respuesta})
     }catch(error){
+        console.log(error)
         return res.status(500).json({error})
     }
 }
